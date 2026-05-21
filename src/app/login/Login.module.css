@@ -1,0 +1,100 @@
+.loginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.loginBox {
+  width: 100%;
+  max-width: 400px;
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.title {
+  color: var(--accent-cyan);
+  font-size: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.inputGroup label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.inputGroup input {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-family: inherit;
+}
+
+.inputGroup input:focus {
+  outline: none;
+  border-color: var(--accent-magenta);
+}
+
+.submitBtn {
+  background: var(--accent-magenta);
+  color: white;
+  font-weight: bold;
+  padding: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  margin-top: 1rem;
+}
+
+.submitBtn:hover:not(:disabled) {
+  opacity: 0.8;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error {
+  color: #ff3366;
+  font-size: 0.9rem;
+  background: rgba(255, 51, 102, 0.1);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.footer {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.footer a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer a:hover {
+  color: var(--accent-cyan);
+}

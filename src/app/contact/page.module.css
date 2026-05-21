@@ -1,0 +1,22 @@
+.pageMain {
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+.pageHeader {
+  text-align: center;
+  padding: 5rem 2rem 2rem;
+}
+
+.pageTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.pageSubtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}

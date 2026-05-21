@@ -1,0 +1,131 @@
+.projectsContainer {
+  padding: 5rem 10%;
+  position: relative;
+  z-index: 1;
+}
+
+.sectionTitle {
+  font-size: 3rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0, 240, 255, 0.15);
+  border-color: rgba(0, 240, 255, 0.3);
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.card:hover .projectImage {
+  transform: scale(1.05);
+}
+
+.cardContent {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  color: var(--accent-cyan);
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+}
+
+.cardDescription {
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tag {
+  background: rgba(0, 255, 102, 0.1);
+  color: var(--accent-green);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.link, .linkPrimary {
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.link {
+  color: var(--text-secondary);
+}
+
+.link:hover {
+  color: var(--text-primary);
+}
+
+.linkPrimary {
+  color: var(--accent-cyan);
+  font-weight: bold;
+}
+
+.linkPrimary:hover {
+  color: var(--accent-magenta);
+}
+
+.linkIcon {
+  font-family: var(--font-mono);
+  color: var(--accent-green);
+}
+
+.linkArrow {
+  transition: transform 0.3s ease;
+}
+
+.linkPrimary:hover .linkArrow {
+  transform: translateX(4px);
+}

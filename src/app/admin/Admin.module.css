@@ -1,0 +1,143 @@
+.adminContainer {
+  padding: 2rem 5%;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: var(--accent-cyan);
+}
+
+.backLink {
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+.backLink:hover {
+  color: var(--text-primary);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formSection, .listSection {
+  padding: 2rem;
+}
+
+.formSection h2, .listSection h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputGroup label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.inputGroup input, .inputGroup textarea {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-family: inherit;
+}
+
+.inputGroup input:focus, .inputGroup textarea:focus {
+  outline: none;
+  border-color: var(--accent-cyan);
+}
+
+.submitBtn {
+  background: var(--accent-cyan);
+  color: black;
+  font-weight: bold;
+  padding: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  margin-top: 1rem;
+}
+
+.submitBtn:hover {
+  opacity: 0.8;
+}
+
+.projectList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.projectItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+}
+
+.projectItem h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.projectItem p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.deleteBtn {
+  background: rgba(255, 0, 60, 0.2);
+  color: var(--accent-magenta);
+  border: 1px solid var(--accent-magenta);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.deleteBtn:hover {
+  background: var(--accent-magenta);
+  color: white;
+}
+
+.empty {
+  color: var(--text-secondary);
+  font-style: italic;
+}
