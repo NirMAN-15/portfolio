@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nirman Achintha | Hero Design Options Showcase</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    :root {
+      --bg: #050511;
+      --card-bg: rgba(10, 10, 26, 0.85);
+      --cyan: #00f0ff;
+      --green: #00ff66;
+      --magenta: #ff003c;
+      --border: rgba(0, 240, 255, 0.2);
+    }
+    body {
+      background-color: var(--bg);
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+    }
+    .text-gradient {
+      background: linear-gradient(90deg, #00f0ff, #00ff66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .active-tab {
+      background: rgba(0, 240, 255, 0.15) !important;
+      border-color: #00f0ff !important;
+      color: #00f0ff !important;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+    }
+    canvas {
+      display: block;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+    .pulse-dot {
+      animation: pulseGlow 1.8s infinite;
+    }
+    @keyframes scanline {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(1000%); }
+    }
+    .scanline {
+      animation: scanline 8s linear infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center">
+
+  <!-- Header -->
+  <header class="max-w-5xl w-full text-center mb-6">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-xs text-cyan-400 font-mono mb-3">
+      <span class="w-2 h-2 rounded-full bg-[#00ff66] pulse-dot"></span>
+      DEV-OPS VISUAL CONCEPTS // ZERO CLASHING CIRCLES
+    </div>
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-2">
+      Hero Section <span class="text-gradient">Design Showcase</span>
+    </h1>
+    <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto">
+      Select an option below to test 5 tailored, authentic DevOps &amp; Cloud visuals designed specifically to complement Nirman's typography without crossing words or using mismatched circles.
+    </p>
+  </header>
+
+  <!-- Interactive Design Selector Buttons -->
+  <div class="max-w-5xl w-full flex flex-wrap justify-center gap-2 md:gap-3 mb-6">
+    <button onclick="switchDesign(1)" id="btn-1" class="active-tab px-4 py-2 rounded-lg font-mono text-xs md:text-sm border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-cyan-400 transition-all flex items-center gap-2">
+      <span>⬡ 01.</span> K8s Cluster Topology
+    </button>
+    <button onclick="switchDesign(2)" id="btn-2" class="px-4 py-2 rounded-lg font-mono text-xs md:text-sm border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-cyan-400 transition-all flex items-center gap-2">
+      <span>➔ 02.</span> GitOps CI/CD Pipeline
+    </button>
+    <button onclick="switchDesign(3)" id="btn-3" class="px-4 py-2 rounded-lg font-mono text-xs md:text-sm border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-cyan-400 transition-all flex items-center gap-2">
+      <span>▤ 03.</span> Isometric Blade Server
+    </button>
+    <button onclick="switchDesign(4)" id="btn-4" class="px-4 py-2 rounded-lg font-mono text-xs md:text-sm border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-cyan-400 transition-all flex items-center gap-2">
+      <span>◇ 04.</span> Geometric Polyhedral Lattice
+    </button>
+    <button onclick="switchDesign(5)" id="btn-5" class="px-4 py-2 rounded-lg font-mono text-xs md:text-sm border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-cyan-400 transition-all flex items-center gap-2">
+      <span>📊 05.</span> SRE Telemetry &amp; HUD Radar
+    </button>
+  </div>
+
+  <!-- Main Live Interactive Stage Container -->
+  <main class="max-w-5xl w-full bg-[#0a0a1c] border border-cyan-500/20 rounded-2xl overflow-hidden shadow-2xl relative">
+    
+    <!-- Top Mock Browser/Window Bar -->
+    <div class="bg-[#0f0f26] border-b border-slate-800 px-4 py-3 flex items-center justify-between text-xs font-mono text-slate-400">
+      <div class="flex items-center gap-2">
+        <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+        <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+        <span class="ml-2 text-slate-300 font-semibold" id="design-title">Option 01: Kubernetes Cluster & Distributed Nodes</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="text-cyan-400" id="design-tag">#K8sTopology</span>
+        <span class="text-green-400">FPS: 60</span>
+      </div>
+    </div>
+
+    <!-- Live Split View (Left: Real Hero Mockup | Right: Selected 3D/Interactive Visual) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 min-h-[460px] p-6 lg:p-8 gap-6 items-center relative overflow-hidden">
+      
+      <!-- Subtle background grid lines -->
+      <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: linear-gradient(to right, #00f0ff 1px, transparent 1px), linear-gradient(to bottom, #00f0ff 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+      <!-- LEFT COLUMN: Nirman's Actual Hero Typography (To verify NO overlap/crossing) -->
+      <div class="lg:col-span-6 z-10 space-y-4">
+        <div class="flex items-center gap-2 font-mono text-xs text-green-400 tracking-wider">
+          <span class="w-2 h-2 rounded-full bg-green-400 pulse-dot"></span>
+          SYSTEM ONLINE — ALL SERVICES OPERATIONAL
+        </div>
+        
+        <div>
+          <h2 class="text-4xl sm:text-5xl font-extrabold text-white leading-tight">
+            Hi, I'm <span class="text-gradient">Nirman Achintha</span>
+          </h2>
+          <p class="text-xl sm:text-2xl font-semibold text-cyan-400 font-mono mt-1" id="mock-role">
+            DevOps &amp; Cloud Engineer
+          </p>
+        </div>
+
+        <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+          IT Undergraduate at <strong class="text-slate-200">University of Moratuwa (ITUM)</strong> &amp; Founder of <strong class="text-cyan-400">Vibe Solution</strong>. Architecting scalable cloud infrastructure, multi-container Docker microservices, and CI/CD pipelines.
+        </p>
+
+        <div class="inline-flex items-center gap-2 bg-black/60 border border-cyan-500/20 rounded-lg px-3 py-1.5 font-mono text-xs text-slate-300">
+          <span class="text-green-400">❯</span>
+          <span class="text-cyan-400">docker compose ps</span>
+          <span class="text-slate-500"># Uptime: 99.9% ✓</span>
+        </div>
+
+        <div class="flex flex-wrap gap-2 pt-2">
+          <span class="px-2.5 py-1 rounded bg-black/40 border border-slate-800 text-[11px] font-mono text-slate-400">Docker</span>
+          <span class="px-2.5 py-1 rounded bg-black/40 border border-slate-800 text-[11px] font-mono text-slate-400">Kubernetes</span>
+          <span class="px-2.5 py-1 rounded bg-black/40 border border-slate-800 text-[11px] font-mono text-slate-400">PostgreSQL</span>
+          <span class="px-2.5 py-1 rounded bg-black/40 border border-slate-800 text-[11px] font-mono text-slate-400">GitHub Actions</span>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Selected Visual Interactive Container -->
+      <div class="lg:col-span-6 z-10 flex items-center justify-center relative min-h-[360px] bg-slate-950/40 border border-slate-800/80 rounded-xl p-4 overflow-hidden">
+        
+        <!-- DESIGN 1: KUBERNETES TOPOLOGY GRAPH -->
+        <div id="view-1" class="design-view w-full h-full flex flex-col items-center justify-center">
+          <canvas id="canvas-k8s" width="460" height="340" class="w-full max-w-[460px] h-[320px]"></canvas>
+          <div class="flex gap-4 text-[11px] font-mono text-slate-400 mt-2">
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-cyan-400"></span> Control Plane</span>
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-emerald-400"></span> Worker Nodes</span>
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-sm bg-blue-400"></span> Microservices</span>
+          </div>
+        </div>
+
+        <!-- DESIGN 2: GITOPS CI/CD PIPELINE STREAM -->
+        <div id="view-2" class="design-view w-full h-full hidden flex flex-col justify-center gap-3">
+          <div class="space-y-3 w-full max-w-md mx-auto">
+            <!-- Stage 1 -->
+            <div class="p-3 bg-black/50 border border-cyan-500/30 rounded-lg flex items-center justify-between font-mono text-xs hover:border-cyan-400 transition-all">
+              <div class="flex items-center gap-2">
+                <span class="text-cyan-400 font-bold">01. GIT PUSH</span>
+                <span class="text-slate-500">commit #a14ef2</span>
+              </div>
+              <span class="text-green-400 font-bold">✓ PASSED</span>
+            </div>
+            <!-- Pulse line -->
+            <div class="h-4 w-0.5 bg-gradient-to-b from-cyan-400 to-emerald-400 mx-auto"></div>
+            <!-- Stage 2 -->
+            <div class="p-3 bg-black/50 border border-emerald-500/30 rounded-lg flex items-center justify-between font-mono text-xs hover:border-emerald-400 transition-all">
+              <div class="flex items-center gap-2">
+                <span class="text-emerald-400 font-bold">02. TRIVY SECURITY SCAN</span>
+                <span class="text-slate-500">CVEs: 0</span>
+              </div>
+              <span class="text-green-400 font-bold">✓ CLEAN</span>
+            </div>
+            <!-- Pulse line -->
+            <div class="h-4 w-0.5 bg-gradient-to-b from-emerald-400 to-cyan-400 mx-auto"></div>
+            <!-- Stage 3 -->
+            <div class="p-3 bg-black/50 border border-cyan-500/40 rounded-lg flex items-center justify-between font-mono text-xs hover:border-cyan-400 transition-all">
+              <div class="flex items-center gap-2">
+                <span class="text-cyan-400 font-bold">03. DOCKER COMPOSE BUILD</span>
+                <span class="text-slate-500">3/3 containers</span>
+              </div>
+              <span class="text-green-400 font-bold">✓ BUILT</span>
+            </div>
+            <!-- Pulse line -->
+            <div class="h-4 w-0.5 bg-gradient-to-b from-cyan-400 to-emerald-400 mx-auto"></div>
+            <!-- Stage 4 -->
+            <div class="p-3 bg-cyan-950/30 border border-emerald-400/60 rounded-lg flex items-center justify-between font-mono text-xs shadow-lg shadow-cyan-950/40">
+              <div class="flex items-center gap-2">
+                <span class="text-white font-bold">04. PRODUCTION DEPLOY</span>
+                <span class="text-emerald-400 font-semibold">aswenna.vibesolution.tech</span>
+              </div>
+              <span class="text-emerald-300 font-bold pulse-dot">● LIVE (200 OK)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESIGN 3: ISOMETRIC BLADE SERVER TOWER -->
+        <div id="view-3" class="design-view w-full h-full hidden flex flex-col items-center justify-center">
+          <canvas id="canvas-server" width="460" height="340" class="w-full max-w-[460px] h-[320px]"></canvas>
+          <div class="flex gap-4 text-[11px] font-mono text-slate-400 mt-2">
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyan-400 pulse-dot"></span> 4x Intel Xeon VPS</span>
+            <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-green-400 pulse-dot"></span> NVMe ZFS RAID</span>
+          </div>
+        </div>
+
+        <!-- DESIGN 4: GEOMETRIC POLYHEDRAL LATTICE (ZERO CIRCLES) -->
+        <div id="view-4" class="design-view w-full h-full hidden flex flex-col items-center justify-center">
+          <canvas id="canvas-lattice" width="460" height="340" class="w-full max-w-[460px] h-[320px]"></canvas>
+          <div class="flex gap-4 text-[11px] font-mono text-slate-400 mt-2">
+            <span class="text-cyan-400 font-mono text-xs">Vertex Matrix: 12 Nodes</span>
+            <span class="text-slate-500 font-mono text-xs">Coordinate Lattice: [X, Y, Z]</span>
+          </div>
+        </div>
+
+        <!-- DESIGN 5: SRE OBSERVABILITY RADAR & HUD -->
+        <div id="view-5" class="design-view w-full h-full hidden flex flex-col justify-between w-full h-[320px] p-2 font-mono">
+          <!-- Top HUD meters -->
+          <div class="grid grid-cols-3 gap-2">
+            <div class="bg-black/50 border border-slate-800 p-2.5 rounded-lg text-center">
+              <div class="text-[10px] text-slate-500 uppercase">Latency</div>
+              <div class="text-base font-bold text-cyan-400">12.4 ms</div>
+              <div class="text-[10px] text-emerald-400">Fast</div>
+            </div>
+            <div class="bg-black/50 border border-slate-800 p-2.5 rounded-lg text-center">
+              <div class="text-[10px] text-slate-500 uppercase">Uptime SLA</div>
+              <div class="text-base font-bold text-emerald-400">99.98%</div>
+              <div class="text-[10px] text-slate-400">Operational</div>
+            </div>
+            <div class="bg-black/50 border border-slate-800 p-2.5 rounded-lg text-center">
+              <div class="text-[10px] text-slate-500 uppercase">Docker Hosts</div>
+              <div class="text-base font-bold text-cyan-400">3 Synced</div>
+              <div class="text-[10px] text-emerald-400">Healthy</div>
+            </div>
+          </div>
+
+          <!-- Waveform Canvas -->
+          <div class="bg-black/70 border border-cyan-500/20 rounded-lg p-2 relative h-32 flex flex-col justify-end">
+            <div class="absolute top-2 left-2 text-[10px] text-slate-400 flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 pulse-dot"></span> Traffic Waveform (req/sec)
+            </div>
+            <canvas id="canvas-radar" width="400" height="90" class="w-full h-24"></canvas>
+          </div>
+
+          <!-- Live Log Stream -->
+          <div class="bg-black/80 border border-slate-800 rounded-lg p-2 text-[11px] space-y-1">
+            <div class="text-slate-500">[04:14:02] <span class="text-cyan-400">nginx-proxy:</span> 200 OK GET /aswenna</div>
+            <div class="text-slate-500">[04:14:08] <span class="text-emerald-400">docker:</span> container healthy (kapruka-mcp)</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Description & Decision Bar -->
+    <div class="bg-[#0b0b20] border-t border-slate-800 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <h3 class="font-bold text-sm text-white" id="desc-name">Option 1: Kubernetes Distributed Topology</h3>
+        <p class="text-xs text-slate-400 mt-0.5" id="desc-text">
+          Features interconnected rectangular worker nodes, ingress gateway, and active packet streams. Zero awkward circles; looks 100% like real cloud architecture.
+        </p>
+      </div>
+      <button onclick="applySelection()" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-black font-bold font-mono text-xs whitespace-nowrap shadow-lg shadow-cyan-500/20 transition-all flex items-center gap-2">
+        <span>✓</span> Apply This Design To Portfolio
+      </button>
+    </div>
+
+  </main>
+
+  <!-- Interactive JavaScript Logic -->
+  <script>
+    let activeDesign = 1;
+
+    const descriptions = {
+      1: {
+        title: "Option 01: Kubernetes Cluster & Distributed Nodes",
+        tag: "#K8sTopology",
+        name: "Option 1: Kubernetes Distributed Topology (Mesh)",
+        text: "Interconnected hexagonal/isometric nodes with live data packets traveling between Control Plane, Worker Pods, and PostgreSQL. Completely removes circles and represents cloud orchestration."
+      },
+      2: {
+        title: "Option 02: GitOps Automated CI/CD Pipeline Stream",
+        tag: "#GitOpsPipeline",
+        name: "Option 2: GitOps CI/CD Stream",
+        text: "Live linear pipeline showing Git Commit → Trivy CVE Scan → Docker Compose Build → Production Live Deploy. High technical relevance for a DevOps specialist."
+      },
+      3: {
+        title: "Option 03: Isometric Cloud Blade Server Rack",
+        tag: "#ServerInfrastructure",
+        name: "Option 3: Isometric Server Rack Blade Unit",
+        text: "A 3D isometric futuristic server chassis with pulsing activity LEDs, SSD bays, and bus lines. Gives a high-performance Linux VPS data center feeling."
+      },
+      4: {
+        title: "Option 04: Geometric Polyhedral Lattice Core",
+        tag: "#DataCore",
+        name: "Option 4: Geometric Polyhedral Lattice Core (Zero Circles)",
+        text: "Clean, high-tech polyhedral crystal wireframe without any circular torus rings. Pure angular precision in matching cyber cyan and neon emerald."
+      },
+      5: {
+        title: "Option 05: SRE Observability Telemetry & HUD Radar",
+        tag: "#SRETelemetry",
+        name: "Option 5: SRE Observability HUD & Metrics Radar",
+        text: "Live throughput waveforms, latency gauges, container health badges, and real-time log tickers. Emphasizes Site Reliability Engineering."
+      }
+    };
+
+    function switchDesign(num) {
+      activeDesign = num;
+      
+      // Update buttons
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`btn-${i}`);
+        const view = document.getElementById(`view-${i}`);
+        if (i === num) {
+          btn.classList.add("active-tab");
+          view.classList.remove("hidden");
+        } else {
+          btn.classList.remove("active-tab");
+          view.classList.add("hidden");
+        }
+      }
+
+      // Update text
+      const d = descriptions[num];
+      document.getElementById("design-title").textContent = d.title;
+      document.getElementById("design-tag").textContent = d.tag;
+      document.getElementById("desc-name").textContent = d.name;
+      document.getElementById("desc-text").textContent = d.text;
+    }
+
+    // ANIMATION FOR DESIGN 1: KUBERNETES TOPOLOGY
+    const k8sCanvas = document.getElementById("canvas-k8s");
+    const k8sCtx = k8sCanvas.getContext("2d");
+    let k8sAngle = 0;
+
+    function renderK8s() {
+      if (activeDesign !== 1) {
+        requestAnimationFrame(renderK8s);
+        return;
+      }
+      k8sCtx.clearRect(0, 0, k8sCanvas.width, k8sCanvas.height);
+      k8sAngle += 0.02;
+
+      const cx = k8sCanvas.width / 2;
+      const cy = k8sCanvas.height / 2;
+
+      // Draw connection lines
+      const nodes = [
+        { x: cx, y: cy - 70, label: "Control Plane", color: "#00f0ff" },
+        { x: cx - 110, y: cy + 40, label: "Worker-01", color: "#00ff66" },
+        { x: cx + 110, y: cy + 40, label: "Worker-02", color: "#00ff66" },
+        { x: cx, y: cy + 90, label: "PostgreSQL", color: "#38bdf8" },
+      ];
+
+      k8sCtx.lineWidth = 1.5;
+      k8sCtx.strokeStyle = "rgba(0, 240, 255, 0.25)";
+      
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          k8sCtx.beginPath();
+          k8sCtx.moveTo(nodes[i].x, nodes[i].y);
+          k8sCtx.lineTo(nodes[j].x, nodes[j].y);
+          k8sCtx.stroke();
+        }
+      }
+
+      // Draw animated packets
+      const packetT = (Date.now() / 1500) % 1;
+      const pX = nodes[0].x + (nodes[1].x - nodes[0].x) * packetT;
+      const pY = nodes[0].y + (nodes[1].y - nodes[0].y) * packetT;
+      k8sCtx.fillStyle = "#00ff66";
+      k8sCtx.shadowColor = "#00ff66";
+      k8sCtx.shadowBlur = 8;
+      k8sCtx.beginPath();
+      k8sCtx.arc(pX, pY, 3, 0, Math.PI * 2);
+      k8sCtx.fill();
+      k8sCtx.shadowBlur = 0;
+
+      // Draw diamond/hexagon nodes
+      nodes.forEach((n) => {
+        k8sCtx.fillStyle = "rgba(5, 5, 17, 0.9)";
+        k8sCtx.strokeStyle = n.color;
+        k8sCtx.lineWidth = 2;
+        k8sCtx.shadowColor = n.color;
+        k8sCtx.shadowBlur = 10;
+
+        // Draw isometric diamond
+        k8sCtx.beginPath();
+        k8sCtx.moveTo(n.x, n.y - 20);
+        k8sCtx.lineTo(n.x + 24, n.y);
+        k8sCtx.lineTo(n.x, n.y + 20);
+        k8sCtx.lineTo(n.x - 24, n.y);
+        k8sCtx.closePath();
+        k8sCtx.fill();
+        k8sCtx.stroke();
+
+        k8sCtx.shadowBlur = 0;
+        k8sCtx.fillStyle = "#e2e8f0";
+        k8sCtx.font = "10px monospace";
+        k8sCtx.textAlign = "center";
+        k8sCtx.fillText(n.label, n.x, n.y + 34);
+      });
+
+      requestAnimationFrame(renderK8s);
+    }
+    renderK8s();
+
+    // ANIMATION FOR DESIGN 3: ISOMETRIC SERVER TOWER
+    const srvCanvas = document.getElementById("canvas-server");
+    const srvCtx = srvCanvas.getContext("2d");
+
+    function renderServer() {
+      if (activeDesign !== 3) {
+        requestAnimationFrame(renderServer);
+        return;
+      }
+      srvCtx.clearRect(0, 0, srvCanvas.width, srvCanvas.height);
+      const cx = srvCanvas.width / 2;
+      const cy = srvCanvas.height / 2 - 20;
+
+      // Draw 3 stacked server chassis in isometric view
+      for (let i = 0; i < 4; i++) {
+        const yOffset = i * 40;
+        
+        // Chassis Box
+        srvCtx.fillStyle = "rgba(10, 15, 30, 0.85)";
+        srvCtx.strokeStyle = "#00f0ff";
+        srvCtx.lineWidth = 1.5;
+
+        // Front Face
+        srvCtx.beginPath();
+        srvCtx.rect(cx - 100, cy + yOffset, 200, 30);
+        srvCtx.fill();
+        srvCtx.stroke();
+
+        // Drive bays & LEDs
+        const isBlinking = Math.sin(Date.now() / 200 + i) > 0;
+        srvCtx.fillStyle = isBlinking ? "#00ff66" : "#005522";
+        srvCtx.fillRect(cx - 85, cy + yOffset + 10, 8, 8);
+
+        srvCtx.fillStyle = "#00f0ff";
+        srvCtx.font = "9px monospace";
+        srvCtx.fillText(`BLADE-${i + 1} // ONLINE`, cx - 65, cy + yOffset + 18);
+
+        // Activity bar
+        srvCtx.fillStyle = "rgba(0, 240, 255, 0.15)";
+        srvCtx.fillRect(cx + 30, cy + yOffset + 11, 55, 6);
+        srvCtx.fillStyle = "#00f0ff";
+        const w = (Math.sin(Date.now() / 400 + i) + 1) * 25;
+        srvCtx.fillRect(cx + 30, cy + yOffset + 11, w, 6);
+      }
+
+      requestAnimationFrame(renderServer);
+    }
+    renderServer();
+
+    // ANIMATION FOR DESIGN 4: POLYHEDRAL LATTICE (NO CIRCLES)
+    const latCanvas = document.getElementById("canvas-lattice");
+    const latCtx = latCanvas.getContext("2d");
+    let latAngle = 0;
+
+    function renderLattice() {
+      if (activeDesign !== 4) {
+        requestAnimationFrame(renderLattice);
+        return;
+      }
+      latCtx.clearRect(0, 0, latCanvas.width, latCanvas.height);
+      latAngle += 0.015;
+
+      const cx = latCanvas.width / 2;
+      const cy = latCanvas.height / 2;
+      const r = 85;
+
+      // 3D Polyhedron vertices (Octahedron / Icosahedron style projection)
+      const numVertices = 6;
+      const pts = [];
+      for (let i = 0; i < numVertices; i++) {
+        const theta = (i / numVertices) * Math.PI * 2 + latAngle;
+        const x = cx + Math.cos(theta) * r;
+        const y = cy + Math.sin(theta) * (r * 0.45);
+        pts.push({ x, y });
+      }
+      const topPt = { x: cx, y: cy - 90 };
+      const botPt = { x: cx, y: cy + 90 };
+
+      // Connect top and bottom to perimeter vertices
+      latCtx.lineWidth = 1.5;
+      latCtx.strokeStyle = "rgba(0, 240, 255, 0.4)";
+      pts.forEach((p) => {
+        latCtx.beginPath();
+        latCtx.moveTo(topPt.x, topPt.y);
+        latCtx.lineTo(p.x, p.y);
+        latCtx.lineTo(botPt.x, botPt.y);
+        latCtx.stroke();
+      });
+
+      // Connect perimeter vertices
+      latCtx.strokeStyle = "rgba(0, 255, 102, 0.5)";
+      latCtx.beginPath();
+      pts.forEach((p, idx) => {
+        if (idx === 0) latCtx.moveTo(p.x, p.y);
+        else latCtx.lineTo(p.x, p.y);
+      });
+      latCtx.closePath();
+      latCtx.stroke();
+
+      // Glowing vertex points
+      [topPt, botPt, ...pts].forEach((pt) => {
+        latCtx.fillStyle = "#00f0ff";
+        latCtx.shadowColor = "#00f0ff";
+        latCtx.shadowBlur = 8;
+        latCtx.beginPath();
+        latCtx.arc(pt.x, pt.y, 3.5, 0, Math.PI * 2);
+        latCtx.fill();
+      });
+      latCtx.shadowBlur = 0;
+
+      requestAnimationFrame(renderLattice);
+    }
+    renderLattice();
+
+    // ANIMATION FOR DESIGN 5: RADAR & WAVEFORM
+    const radCanvas = document.getElementById("canvas-radar");
+    const radCtx = radCanvas.getContext("2d");
+    let waveOffset = 0;
+
+    function renderRadar() {
+      if (activeDesign !== 5) {
+        requestAnimationFrame(renderRadar);
+        return;
+      }
+      radCtx.clearRect(0, 0, radCanvas.width, radCanvas.height);
+      waveOffset += 0.05;
+
+      radCtx.strokeStyle = "#00f0ff";
+      radCtx.lineWidth = 2;
+      radCtx.shadowColor = "#00f0ff";
+      radCtx.shadowBlur = 6;
+
+      radCtx.beginPath();
+      for (let x = 0; x < radCanvas.width; x += 4) {
+        const y = 45 + Math.sin(x * 0.04 + waveOffset) * 20 + Math.cos(x * 0.08 + waveOffset * 1.5) * 10;
+        if (x === 0) radCtx.moveTo(x, y);
+        else radCtx.lineTo(x, y);
+      }
+      radCtx.stroke();
+      radCtx.shadowBlur = 0;
+
+      requestAnimationFrame(renderRadar);
+    }
+    renderRadar();
+
+    function applySelection() {
+      const selected = descriptions[activeDesign];
+      alert(`You selected: ${selected.name}!\n\nJust tell me in chat: "Apply Option ${activeDesign}" and I will immediately update the main website hero scene with this exact design!`);
+    }
+  </script>
+</body>
+</html>

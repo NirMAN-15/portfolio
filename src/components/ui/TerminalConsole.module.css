@@ -1,0 +1,265 @@
+.launcherBtn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(10, 10, 26, 0.9);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.launcherBtn:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 6px 25px rgba(0, 240, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.launcherPrompt {
+  color: var(--accent-green);
+  font-weight: bold;
+}
+
+.launcherText {
+  letter-spacing: 0.5px;
+}
+
+.terminalOverlay {
+  position: fixed;
+  bottom: 5rem;
+  right: 1.5rem;
+  width: 90vw;
+  max-width: 580px;
+  height: 400px;
+  z-index: 998;
+  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.terminalContainer {
+  width: 100%;
+  height: 100%;
+  background: rgba(5, 5, 17, 0.95);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 240, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: var(--font-mono);
+}
+
+.titleBar {
+  background: rgba(15, 15, 30, 0.9);
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  user-select: none;
+}
+
+.windowControls {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dotRed {
+  background: #ff5f56;
+}
+
+.dotYellow {
+  background: #ffbd2e;
+}
+
+.dotGreen {
+  background: #27c93f;
+}
+
+.windowTitle {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.closeBtn:hover {
+  color: #ff003c;
+}
+
+.terminalBody {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.terminalBody::-webkit-scrollbar {
+  width: 4px;
+}
+
+.terminalBody::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.2);
+  border-radius: 2px;
+}
+
+.historyRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.commandLine {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.prompt {
+  color: var(--accent-green);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.commandText {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.commandOutput {
+  color: var(--text-secondary);
+  padding-left: 0.5rem;
+}
+
+.outputBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.cmdGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.2rem;
+  margin-top: 0.35rem;
+}
+
+.activeCommandLine {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.terminalInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.terminalInput::placeholder {
+  color: rgba(148, 163, 184, 0.4);
+}
+
+.highlight {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.cyan {
+  color: var(--accent-cyan);
+}
+
+.green {
+  color: var(--accent-green);
+}
+
+.magenta {
+  color: var(--accent-magenta);
+}
+
+.accent {
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.success {
+  color: var(--accent-green);
+}
+
+.dim {
+  color: var(--text-secondary);
+  opacity: 0.8;
+}
+
+.error {
+  color: #ff3366;
+}
+
+.link {
+  color: var(--accent-cyan);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link:hover {
+  color: var(--accent-green);
+}
+
+@media (max-width: 640px) {
+  .terminalOverlay {
+    right: 5%;
+    width: 90vw;
+    height: 350px;
+    bottom: 4.5rem;
+  }
+}

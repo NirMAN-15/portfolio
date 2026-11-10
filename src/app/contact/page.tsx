@@ -2,8 +2,8 @@ import styles from "./page.module.css";
 import Contact from "@/components/ui/Contact";
 
 export const metadata = {
-  title: "Contact | NirMAN-15 DevOps Portfolio",
-  description: "Get in touch with NirMAN-15 — DevOps & SRE Engineer.",
+  title: "Contact | Nirman Achintha Portfolio",
+  description: "Get in touch with Nirman Achintha — DevOps, Cloud & Systems Engineer.",
 };
 
 export default function ContactPage() {

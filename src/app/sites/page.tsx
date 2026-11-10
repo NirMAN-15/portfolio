@@ -2,37 +2,81 @@ import prisma from "@/lib/prisma";
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Live Sites | NirMAN-15 DevOps Portfolio",
-  description: "Published and deployed websites by NirMAN-15 — DevOps & SRE Engineer.",
+  title: "Live Sites | Nirman Achintha Portfolio",
+  description: "Published and deployed production applications by Nirman Achintha — DevOps, Cloud & Systems Engineer.",
 };
 
 export const revalidate = 3600;
 
+function getHostname(urlStr: string) {
+  try {
+    return new URL(urlStr).hostname;
+  } catch {
+    return urlStr;
+  }
+}
+
+const DEFAULT_SITES = [
+  {
+    id: 1,
+    title: "Aswenna (ASVANNA)",
+    url: "https://aswenna.vibesolution.tech/",
+    description: "National agricultural market intelligence & zero-waste direct farmer trading platform designed for ITUM (University of Moratuwa).",
+    techStack: "Docker, PostgreSQL, Node.js, React, Flutter, Nginx SSL, Linux VPS, GitHub Actions",
+    featured: true,
+  },
+  {
+    id: 2,
+    title: "Kapruka AI Shopping Assistant",
+    url: "https://kapruka-ai-lake.vercel.app/",
+    description: "Conversational e-commerce intelligence assistant with Model Context Protocol (MCP) server integration and multilingual NLP.",
+    techStack: "React.js, Express.js Serverless, Model Context Protocol (MCP), Multilingual NLP, Vercel",
+    featured: true,
+  },
+  {
+    id: 3,
+    title: "Vibe Solution Agency Platform",
+    url: "https://vibesolution.tech/",
+    description: "Client web engineering portal, Linux cloud automation, and digital enterprise consultancy showcase.",
+    techStack: "Next.js, React, Node.js, Linux Cloud VPS, Nginx, Docker, GitHub Actions",
+    featured: true,
+  },
+  {
+    id: 4,
+    title: "Career Path (Career Compass)",
+    url: "http://careerpath.fwh.is/",
+    description: "Diagnostic IT career analytics engine with normalized 3NF MySQL schema handling high university onboarding concurrency.",
+    techStack: "PHP, MySQL (3NF Normalized), JavaScript, HTML5/CSS3, Linux Hosting",
+    featured: false,
+  },
+];
+
 export default async function SitesPage() {
-  const sites = await prisma.deployedSite.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  let sites: any[] = [];
+  try {
+    sites = await prisma.deployedSite.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (err) {
+    console.error("Error fetching deployed sites:", err);
+  }
+
+  const displaySites = sites.length > 0 ? sites : DEFAULT_SITES;
 
   return (
     <main className={styles.pageMain}>
       <div className={styles.pageHeader}>
-        <p className={styles.preTitle}>// deployed &amp; live</p>
+        <p className={styles.preTitle}>// deployed &amp; operational</p>
         <h1 className={styles.pageTitle}>
-          Published <span className="text-gradient">Websites</span>
+          Published <span className="text-gradient">Production Services</span>
         </h1>
         <p className={styles.pageSubtitle}>
-          Real-world applications I have built, shipped, and currently maintain in production.
+          Real-world applications engineered, containerized, and deployed by Nirman Achintha.
         </p>
       </div>
 
-      {sites.length === 0 ? (
-        <div className={styles.emptyState}>
-          <p className={styles.emptyIcon}>🚀</p>
-          <p>No deployed sites yet. Add them from the Admin panel.</p>
-        </div>
-      ) : (
-        <div className={styles.grid}>
-          {sites.map((site) => (
+      <div className={styles.grid}>
+        {displaySites.map((site) => (
             <a
               key={site.id}
               href={site.url}
@@ -51,11 +95,11 @@ export default async function SitesPage() {
                 ) : (
                   <div className={styles.thumbnailPlaceholder}>
                     <span className={styles.placeholderGlobe}>🌐</span>
-                    <span className={styles.placeholderUrl}>{new URL(site.url).hostname}</span>
+                    <span className={styles.placeholderUrl}>{getHostname(site.url)}</span>
                   </div>
                 )}
                 <div className={styles.thumbnailOverlay}>
-                  <span className={styles.visitLabel}>Visit Site →</span>
+                  <span className={styles.visitLabel}>Visit Live Site →</span>
                 </div>
               </div>
 
@@ -76,7 +120,7 @@ export default async function SitesPage() {
                 <div className={styles.techStackSection}>
                   <p className={styles.techLabel}>Tech Stack</p>
                   <div className={styles.techBadges}>
-                    {site.techStack.split(",").map((tech) => (
+                    {site.techStack.split(",").map((tech: string) => (
                       <span key={tech.trim()} className={styles.techBadge}>
                         {tech.trim()}
                       </span>
@@ -87,7 +131,6 @@ export default async function SitesPage() {
             </a>
           ))}
         </div>
-      )}
     </main>
   );
 }

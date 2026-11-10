@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nirman Portfolio | 3D Hero Ring Replacement Options</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #050511;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 1.25rem 2rem;
+      background: rgba(10, 10, 26, 0.9);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+    }
+    .header-title h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .header-title h1 span {
+      background: linear-gradient(90deg, #00f0ff, #00ff66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-title p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin-top: 0.2rem;
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .btn {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      color: #cbd5e1;
+      padding: 0.5rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn:hover {
+      border-color: #00f0ff;
+      color: #00f0ff;
+    }
+    .btn.active {
+      background: rgba(0, 240, 255, 0.15);
+      border-color: #00f0ff;
+      color: #00f0ff;
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+    }
+    #stage-container {
+      position: relative;
+      flex: 1;
+      width: 100vw;
+      height: calc(100vh - 140px);
+      min-height: 520px;
+    }
+    #three-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .mock-hero {
+      position: absolute;
+      top: 50%;
+      left: 8%;
+      transform: translateY(-50%);
+      z-index: 10;
+      max-width: 500px;
+      pointer-events: none;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: #00ff66;
+      font-family: monospace;
+      letter-spacing: 1px;
+      margin-bottom: 0.8rem;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #00ff66;
+      box-shadow: 0 0 8px #00ff66;
+    }
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+    .hero-title span {
+      background: linear-gradient(90deg, #00f0ff, #00ff66);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-role {
+      font-size: 1.5rem;
+      color: #00f0ff;
+      font-family: monospace;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .hero-desc {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 1.25rem;
+    }
+    .hero-snippet {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      border-radius: 6px;
+      padding: 0.4rem 0.8rem;
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: #00ff66;
+    }
+    .info-card {
+      position: absolute;
+      bottom: 1.5rem;
+      right: 2rem;
+      z-index: 20;
+      background: rgba(10, 10, 26, 0.85);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      max-width: 440px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+    }
+    .info-tag {
+      font-size: 0.7rem;
+      color: #00f0ff;
+      font-family: monospace;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .info-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0.2rem 0 0.4rem 0;
+    }
+    .info-desc {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      line-height: 1.4;
+      margin-bottom: 0.8rem;
+    }
+    .apply-btn {
+      width: 100%;
+      background: linear-gradient(90deg, #00f0ff, #00ff66);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-family: monospace;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .apply-btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-title">
+      <h1>3D Hero Scene: <span>5 Circle Replacement Options</span></h1>
+      <p>Keeps the exact 3D Octahedron + Satellites you like, with 5 different ways to replace the 2 circles.</p>
+    </div>
+    <div class="btn-group">
+      <button class="btn active" onclick="setOption(1)" id="btn-1">
+        <span>⬡ 01.</span> Hexagonal Cyber Shields
+      </button>
+      <button class="btn" onclick="setOption(2)" id="btn-2">
+        <span>⚡ 02.</span> Pulsing Data Laser Beams
+      </button>
+      <button class="btn" onclick="setOption(3)" id="btn-3">
+        <span>⊕ 03.</span> 3D Gyroscopic Gimbal
+      </button>
+      <button class="btn" onclick="setOption(4)" id="btn-4">
+        <span>◇ 04.</span> Nested Polyhedral Outer Cage
+      </button>
+      <button class="btn" onclick="setOption(5)" id="btn-5">
+        <span>✦ 05.</span> Clean Pure Core (No Rings)
+      </button>
+    </div>
+  </header>
+
+  <div id="stage-container">
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Mock Left Hero Typography -->
+    <div class="mock-hero">
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        SYSTEM ONLINE — ALL SERVICES OPERATIONAL
+      </div>
+      <h2 class="hero-title">
+        Hi, I'm <span>Nirman Achintha</span>
+      </h2>
+      <div class="hero-role">DevOps &amp; Cloud Engineer</div>
+      <p class="hero-desc">
+        IT Undergraduate at <strong>University of Moratuwa (ITUM)</strong> &amp; Founder of <strong>Vibe Solution</strong>. Architecting scalable cloud infrastructure, Docker microservices, and CI/CD pipelines.
+      </p>
+      <div class="hero-snippet">
+        ❯ docker compose ps &amp;&amp; kubectl get nodes # 100% Uptime ✓
+      </div>
+    </div>
+
+    <!-- Right Side Option Description Card -->
+    <div class="info-card">
+      <div class="info-tag" id="card-tag">Option 01 // Angular Precision</div>
+      <h3 class="info-title" id="card-title">Dual Hexagonal Cyber Shields</h3>
+      <p class="info-desc" id="card-desc">
+        Replaces the smooth circular rings with 6-sided geometric wireframe hexagons. Their sharp straight lines naturally match the triangles of the central Octahedron!
+      </p>
+      <button class="apply-btn" onclick="copyChoice()">
+        ✓ Select Option <span id="card-num">1</span> For Portfolio
+      </button>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from '/three.module.min.js';
+
+    let currentOption = 3;
+    const canvas = document.getElementById('three-canvas');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(52, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+    camera.position.set(0, 0, 6.2);
+
+    // Ambient & Directional Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+
+    const dirLight1 = new THREE.DirectionalLight(0x00f0ff, 1.2);
+    dirLight1.position.set(5, 5, 5);
+    scene.add(dirLight1);
+
+    const dirLight2 = new THREE.DirectionalLight(0x00ff66, 0.6);
+    dirLight2.position.set(-3, -3, 2);
+    scene.add(dirLight2);
+
+    // Stars Background
+    const starsGeo = new THREE.BufferGeometry();
+    const starCount = 2000;
+    const starPositions = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount * 3; i++) {
+      starPositions[i] = (Math.random() - 0.5) * 80;
+    }
+    starsGeo.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+    const starsMat = new THREE.PointsMaterial({ size: 0.03, color: 0xffffff, transparent: true, opacity: 0.6 });
+    const stars = new THREE.Points(starsGeo, starsMat);
+    scene.add(stars);
+
+    // Grid Floor
+    const grid = new THREE.GridHelper(35, 35, 0x00f0ff, 0x081426);
+    grid.position.y = -3.2;
+    scene.add(grid);
+
+    // ──────────────────────────────────────────────
+    // 3D Objects in exact positions from user's screenshot
+    // ──────────────────────────────────────────────
+    const centerPos = new THREE.Vector3(2.4, 0.1, 0);
+
+    // 1. Central Octahedron (The shape the user loves!)
+    const octaGeo = new THREE.OctahedronGeometry(1.65, 0);
+    const octaMat = new THREE.MeshStandardMaterial({
+      color: 0x00f0ff,
+      wireframe: true,
+      emissive: 0x00f0ff,
+      emissiveIntensity: 0.65,
+    });
+    const octaMesh = new THREE.Mesh(octaGeo, octaMat);
+    octaMesh.position.copy(centerPos);
+    scene.add(octaMesh);
+
+    // 2. Upper Satellite: Green Icosahedron
+    const icoPos = new THREE.Vector3(3.8, 1.8, -0.5);
+    const icoGeo = new THREE.IcosahedronGeometry(0.45, 0);
+    const icoMat = new THREE.MeshStandardMaterial({
+      color: 0x00ff66,
+      wireframe: true,
+      emissive: 0x00ff66,
+      emissiveIntensity: 0.6,
+    });
+    const icoMesh = new THREE.Mesh(icoGeo, icoMat);
+    icoMesh.position.copy(icoPos);
+    scene.add(icoMesh);
+
+    // 3. Lower Satellite: Micro Cube
+    const cubePos = new THREE.Vector3(3.6, -2.0, -0.8);
+    const cubeGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+    const cubeMat = new THREE.MeshStandardMaterial({
+      color: 0x00f0ff,
+      wireframe: true,
+      emissive: 0x00f0ff,
+      emissiveIntensity: 0.5,
+    });
+    const cubeMesh = new THREE.Mesh(cubeGeo, cubeMat);
+    cubeMesh.position.copy(cubePos);
+    scene.add(cubeMesh);
+
+    // ──────────────────────────────────────────────
+    // THE 5 ALTERNATIVE DESIGNS FOR THE 2 CIRCLES
+    // ──────────────────────────────────────────────
+
+    // Group to hold the current option's accessories
+    const optionGroup = new THREE.Group();
+    optionGroup.position.copy(centerPos);
+    scene.add(optionGroup);
+
+    // Laser lines container for Option 2
+    let laserLines = null;
+
+    function buildOption(opt) {
+      // Clear previous option elements
+      while (optionGroup.children.length > 0) {
+        const obj = optionGroup.children[0];
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) obj.material.dispose();
+        optionGroup.remove(obj);
+      }
+      if (laserLines) {
+        scene.remove(laserLines);
+        laserLines = null;
+      }
+
+      if (opt === 1) {
+        // OPTION 1: Dual Hexagonal Cyber Shields (6-sided straight polygon rings!)
+        // Inner Hexagon
+        const hexGeo1 = new THREE.RingGeometry(1.9, 1.93, 6);
+        const hexMat1 = new THREE.MeshBasicMaterial({ color: 0x00f0ff, side: THREE.DoubleSide, transparent: true, opacity: 0.65 });
+        const hex1 = new THREE.Mesh(hexGeo1, hexMat1);
+        hex1.name = "hex1";
+        optionGroup.add(hex1);
+
+        // Outer Hexagon
+        const hexGeo2 = new THREE.RingGeometry(2.35, 2.38, 6);
+        const hexMat2 = new THREE.MeshBasicMaterial({ color: 0x00ff66, side: THREE.DoubleSide, transparent: true, opacity: 0.5 });
+        const hex2 = new THREE.Mesh(hexGeo2, hexMat2);
+        hex2.name = "hex2";
+        optionGroup.add(hex2);
+
+        // Corner Vertex Dots on Hexagon
+        const dotGeo = new THREE.BufferGeometry();
+        const dotPositions = [];
+        for (let i = 0; i < 6; i++) {
+          const angle = (i / 6) * Math.PI * 2;
+          dotPositions.push(Math.cos(angle) * 1.91, Math.sin(angle) * 1.91, 0);
+          dotPositions.push(Math.cos(angle) * 2.36, Math.sin(angle) * 2.36, 0);
+        }
+        dotGeo.setAttribute('position', new THREE.Float32BufferAttribute(dotPositions, 3));
+        const dotMat = new THREE.PointsMaterial({ size: 0.08, color: 0x00f0ff });
+        const dots = new THREE.Points(dotGeo, dotMat);
+        dots.name = "dots";
+        optionGroup.add(dots);
+
+      } else if (opt === 2) {
+        // OPTION 2: Pulsing Data Laser Beams (Connecting Octahedron to Satellites)
+        laserLines = new THREE.Group();
+
+        // Line 1: Center to Ico
+        const lineGeo1 = new THREE.BufferGeometry().setFromPoints([centerPos, icoPos]);
+        const lineMat1 = new THREE.LineBasicMaterial({ color: 0x00ff66, transparent: true, opacity: 0.7 });
+        const line1 = new THREE.Line(lineGeo1, lineMat1);
+        laserLines.add(line1);
+
+        // Line 2: Center to Cube
+        const lineGeo2 = new THREE.BufferGeometry().setFromPoints([centerPos, cubePos]);
+        const lineMat2 = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.7 });
+        const line2 = new THREE.Line(lineGeo2, lineMat2);
+        laserLines.add(line2);
+
+        // Line 3: Ico to Cube
+        const lineGeo3 = new THREE.BufferGeometry().setFromPoints([icoPos, cubePos]);
+        const lineMat3 = new THREE.LineBasicMaterial({ color: 0x38bdf8, transparent: true, opacity: 0.35 });
+        const line3 = new THREE.Line(lineGeo3, lineMat3);
+        laserLines.add(line3);
+
+        // Floating pulse packets
+        const packetGeo = new THREE.SphereGeometry(0.06, 8, 8);
+        const p1 = new THREE.Mesh(packetGeo, new THREE.MeshBasicMaterial({ color: 0x00ff66 }));
+        p1.name = "packet1";
+        const p2 = new THREE.Mesh(packetGeo, new THREE.MeshBasicMaterial({ color: 0x00f0ff }));
+        p2.name = "packet2";
+        laserLines.add(p1);
+        laserLines.add(p2);
+
+        scene.add(laserLines);
+
+      } else if (opt === 3) {
+        // OPTION 3: 3D Gyroscopic Gimbal (Tilted on 3D axes, NOT flat facing camera)
+        // Ring 1 on X/Y tilted 45°
+        const gimbGeo1 = new THREE.TorusGeometry(2.1, 0.012, 16, 80);
+        const gimbMat1 = new THREE.MeshBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.55 });
+        const gimb1 = new THREE.Mesh(gimbGeo1, gimbMat1);
+        gimb1.name = "gimb1";
+        gimb1.rotation.x = Math.PI / 4;
+        optionGroup.add(gimb1);
+
+        // Ring 2 tilted 60° on Y/Z
+        const gimbGeo2 = new THREE.TorusGeometry(2.35, 0.01, 16, 80);
+        const gimbMat2 = new THREE.MeshBasicMaterial({ color: 0x00ff66, transparent: true, opacity: 0.45 });
+        const gimb2 = new THREE.Mesh(gimbGeo2, gimbMat2);
+        gimb2.name = "gimb2";
+        gimb2.rotation.y = Math.PI / 3;
+        optionGroup.add(gimb2);
+
+      } else if (opt === 4) {
+        // OPTION 4: Nested Polyhedral Outer Cage (Wireframe Icosahedron / Geodesic Enclosure)
+        const cageGeo = new THREE.IcosahedronGeometry(2.4, 0);
+        const cageMat = new THREE.MeshStandardMaterial({
+          color: 0x00f0ff,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.25,
+          emissive: 0x00f0ff,
+          emissiveIntensity: 0.3,
+        });
+        const cage = new THREE.Mesh(cageGeo, cageMat);
+        cage.name = "cage";
+        optionGroup.add(cage);
+
+        // Secondary subtle octahedron cage
+        const cageGeo2 = new THREE.OctahedronGeometry(2.8, 0);
+        const cageMat2 = new THREE.MeshStandardMaterial({
+          color: 0x00ff66,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.15,
+        });
+        const cage2 = new THREE.Mesh(cageGeo2, cageMat2);
+        cage2.name = "cage2";
+        optionGroup.add(cage2);
+
+      } else if (opt === 5) {
+        // OPTION 5: Clean Pure Core (ZERO RINGS - Pure Minimalist Hologram)
+        // Add subtle floating coordinate crosshairs at cardinal points
+        const crossMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.4 });
+        const offsets = [
+          [2.1, 0, 0], [-2.1, 0, 0], [0, 2.1, 0], [0, -2.1, 0]
+        ];
+        offsets.forEach(([x, y, z]) => {
+          const crossGeo = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(x - 0.12, y, z),
+            new THREE.Vector3(x + 0.12, y, z),
+          ]);
+          optionGroup.add(new THREE.Line(crossGeo, crossMat));
+          const crossGeo2 = new THREE.BufferGeometry().setFromPoints([
+            new THREE.Vector3(x, y - 0.12, z),
+            new THREE.Vector3(x, y + 0.12, z),
+          ]);
+          optionGroup.add(new THREE.Line(crossGeo2, crossMat));
+        });
+      }
+    }
+
+    buildOption(3); window.addEventListener("DOMContentLoaded", () => setOption(3));
+
+    // Animation Loop
+    let clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+
+      // Animate Central Octahedron
+      octaMesh.rotation.x = t * 0.18;
+      octaMesh.rotation.y = t * 0.28;
+
+      // Animate Satellites
+      icoMesh.rotation.x = t * 0.3;
+      icoMesh.rotation.y = t * 0.25;
+      icoMesh.position.y = 1.8 + Math.sin(t * 0.6) * 0.25;
+
+      cubeMesh.rotation.x = t * 0.2;
+      cubeMesh.rotation.y = t * 0.3;
+      cubeMesh.position.y = -2.0 + Math.cos(t * 0.5) * 0.2;
+
+      // Animate Option elements
+      if (currentOption === 1) {
+        const hex1 = optionGroup.getObjectByName("hex1");
+        const hex2 = optionGroup.getObjectByName("hex2");
+        const dots = optionGroup.getObjectByName("dots");
+        if (hex1) hex1.rotation.z = t * 0.25;
+        if (hex2) hex2.rotation.z = -t * 0.18;
+        if (dots) dots.rotation.z = t * 0.25;
+      } else if (currentOption === 2 && laserLines) {
+        const p1 = laserLines.getObjectByName("packet1");
+        const p2 = laserLines.getObjectByName("packet2");
+        if (p1) {
+          const prog1 = (t * 0.8) % 1;
+          p1.position.lerpVectors(centerPos, icoMesh.position, prog1);
+        }
+        if (p2) {
+          const prog2 = (t * 0.6) % 1;
+          p2.position.lerpVectors(centerPos, cubeMesh.position, prog2);
+        }
+      } else if (currentOption === 3) {
+        const g1 = optionGroup.getObjectByName("gimb1");
+        const g2 = optionGroup.getObjectByName("gimb2");
+        if (g1) g1.rotation.z = t * 0.35;
+        if (g2) g2.rotation.x = -t * 0.25;
+      } else if (currentOption === 4) {
+        const c1 = optionGroup.getObjectByName("cage");
+        const c2 = optionGroup.getObjectByName("cage2");
+        if (c1) {
+          c1.rotation.x = t * 0.08;
+          c1.rotation.y = -t * 0.12;
+        }
+        if (c2) {
+          c2.rotation.x = -t * 0.06;
+          c2.rotation.z = t * 0.1;
+        }
+      }
+
+      // Animate background stars & grid
+      stars.rotation.y = t * 0.01;
+      grid.position.z = (t * 0.25) % 1;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = canvas.clientWidth / canvas.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+    });
+
+    const optionDetails = {
+      1: {
+        tag: "Option 01 // Angular Precision",
+        title: "Dual Hexagonal Cyber Shields",
+        desc: "Replaces the smooth circular rings with 6-sided geometric wireframe hexagons. Their sharp straight lines naturally match the triangles of the central Octahedron!"
+      },
+      2: {
+        tag: "Option 02 // Network Topology",
+        title: "Pulsing Data Laser Beams",
+        desc: "Removes circles entirely! Instead, animated pulsing cyan and emerald laser line beams connect the central Octahedron directly to the satellite nodes with live packet flow."
+      },
+      3: {
+        tag: "Option 03 // 3D Gimbal",
+        title: "3D Gyroscopic Gimbal",
+        desc: "Rather than flat rings facing the screen, 2 delicate gyroscopic gimbal rings tilted on realistic 3D axes (tilted 45° and 60°) spinning like an atomic particle accelerator."
+      },
+      4: {
+        tag: "Option 04 // Geometric Enclosure",
+        title: "Nested Polyhedral Outer Cage",
+        desc: "A larger, delicate wireframe icosahedron cage orbiting the octahedron like an atmospheric containment shield. 100% geometric consistency!"
+      },
+      5: {
+        tag: "Option 05 // Minimalist Cyber",
+        title: "Clean Pure Core (Zero Rings)",
+        desc: "Completely removes any rings or circles! Shows only the pure floating Octahedron, satellite nodes, and subtle coordinate crosshairs. Extremely clean and uncluttered."
+      }
+    };
+
+    window.setOption = function(opt) {
+      currentOption = opt;
+      for (let i = 1; i <= 5; i++) {
+        const btn = document.getElementById(`btn-${i}`);
+        if (i === opt) btn.classList.add('active');
+        else btn.classList.remove('active');
+      }
+      const d = optionDetails[opt];
+      document.getElementById('card-tag').textContent = d.tag;
+      document.getElementById('card-title').textContent = d.title;
+      document.getElementById('card-desc').textContent = d.desc;
+      document.getElementById('card-num').textContent = opt;
+
+      buildOption(opt);
+    };
+
+    window.copyChoice = function() {
+      const d = optionDetails[currentOption];
+      alert(`You chose: Option ${currentOption} (${d.title})!\n\nJust tell me: "Apply Option ${currentOption}" in chat and I will immediately update the main website with this exact 3D design!`);
+    };
+  </script>
+</body>
+</html>

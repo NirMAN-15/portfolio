@@ -2,11 +2,13 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-3.0.x", "debian-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 model Profile {
@@ -14,6 +16,8 @@ model Profile {
   name      String
   bio       String
   email     String?
+  phone     String?
+  location  String?
   github    String?
   linkedin  String?
   updatedAt DateTime @updatedAt

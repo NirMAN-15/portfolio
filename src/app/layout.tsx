@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/Navbar";
+import TerminalConsole from "@/components/ui/TerminalConsole";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,8 +15,8 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "NirMAN-15 | DevOps Engineer Portfolio",
-  description: "DevOps Engineer Portfolio featuring 3D elements and automated CI/CD.",
+  title: "Nirman Achintha | DevOps, Cloud & Systems Engineer Portfolio",
+  description: "DevOps & Cloud Systems Engineer Portfolio of Nirman Achintha (Founder @ Vibe Solution, ITUM Moratuwa) featuring interactive 3D elements, automated CI/CD pipelines, and cloud-native architecture.",
 };
 
 export default function RootLayout({
@@ -31,6 +32,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#050511] text-slate-200">
         <Navbar />
         {children}
+        <TerminalConsole />
       </body>
     </html>
   );

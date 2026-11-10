@@ -2,8 +2,8 @@ import styles from "./page.module.css";
 import Projects from "@/components/ui/Projects";
 
 export const metadata = {
-  title: "Projects | NirMAN-15 DevOps Portfolio",
-  description: "Browse all open-source repositories and DevOps projects by NirMAN-15.",
+  title: "Projects | Nirman Achintha Portfolio",
+  description: "Browse engineering repositories, production architectures, and open-source systems by Nirman Achintha.",
 };
 
 export default function ProjectsPage() {
